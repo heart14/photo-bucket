@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<!--
+    mybatis逆向工程，用于生成pojo dao mapper需要更改的地方：
+        1、17行，数据库驱动包位置。location=""
+        2、26行，数据库参数。connectionURL=""  userId=""  password=""
+        3、34行，生成模型的包名和位置。targetPackage=""  targetProject=""
+        4、39行，生成映射文件的包名和位置。targetPackage=""  targetProject=""
+        5、43行，生成DAO的包名和位置。targetPackage=""  targetProject=""
+        6、47行，要生成的表。tableName=""  domainObjectNamee=""。需要从多张表生成，就用多个<table>标签
+-->
+<generatorConfiguration>
+    <!-- 数据库驱动:换成你本地的驱动包位置-->
+    <classPathEntry location="C:\Heartzz\Apache\MavenRepository\mysql\mysql-connector-java\8.0.20\mysql-connector-java-8.0.20.jar"/>
+    <context id="DB2Tables" targetRuntime="MyBatis3">
+        <commentGenerator>
+            <property name="suppressDate" value="true"/>
+            <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+        <!--数据库链接URL，用户名、密码 -->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://www.sadli.xyz:3306/photo_bucket?characterEncoding=utf8"
+                        userId="root"
+                        password="$$mysql.0425">
+        </jdbcConnection>
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+        <!-- 生成模型的包名和位置-->
+        <javaModelGenerator targetPackage="com.heart.photobucket.entity" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+        <!-- 生成映射文件的包名和位置-->
+        <sqlMapGenerator targetPackage="com.heart.photobucket.dao.mapper" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+        <!-- 生成DAO的包名和位置-->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.heart.photobucket.dao" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+        <!-- 要生成的表 tableName是数据库中的表名或视图名 domainObjectName是实体类名-->
+        <table tableName="photo"
+               domainObjectName="Photo"
+               mapperName="PhotoMapper"
+               enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false"
+               enableSelectByExample="false"
+               selectByExampleQueryId="false">
+        </table>
+    </context>
+</generatorConfiguration>
