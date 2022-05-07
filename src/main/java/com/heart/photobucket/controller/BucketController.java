@@ -5,6 +5,7 @@ import cn.hutool.json.JSONUtil;
 import com.heart.photobucket.model.SysRequest;
 import com.heart.photobucket.model.SysResponse;
 import com.heart.photobucket.service.BucketService;
+import com.heart.photobucket.utils.IpUtils;
 import com.heart.photobucket.utils.SysResponseUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -47,7 +48,6 @@ public class BucketController {
         Map<String, List<String>> upload = bucketService.upload(multipartFiles);
 
         String parameter = request.getParameter("sysRequest");
-        Assert.notBlank(parameter);
         SysRequest sysRequest = JSONUtil.toBean(parameter, SysRequest.class);
 
         return SysResponseUtils.success(sysRequest.getBizSeq(), upload);
@@ -60,5 +60,20 @@ public class BucketController {
         logger.info("test proxy balance ：{}", sysRequest);
 
         return SysResponseUtils.success(sysRequest.getBizSeq(), "responsed by port :" + serverPort);
+    }
+    @ApiOperation("从图床下载图片")
+    @RequestMapping(value = "/test", method = RequestMethod.POST)
+    public SysResponse test(@RequestBody Map<String,String[]> paramMap) {
+
+        for (String s : paramMap.keySet()) {
+            String[] v = paramMap.get(s);
+
+            logger.info("k = {}, v = {}",s,v);
+
+            
+        }
+
+
+        return SysResponseUtils.success("1111111", "responsed by port :" + serverPort);
     }
 }

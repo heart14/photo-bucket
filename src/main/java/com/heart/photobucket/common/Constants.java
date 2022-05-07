@@ -13,4 +13,7 @@ public class Constants {
      */
     public static final String STATE_SUCCESS = "SUCCESS";
     public static final String STATE_FAIL = "FAIL";
+
+    public static final int STATUS_VALID = 0;
+    public static final int STATUS_INVALID = 1;
 }
