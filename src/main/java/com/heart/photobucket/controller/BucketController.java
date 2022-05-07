@@ -29,7 +29,9 @@ import java.util.Map;
 public class BucketController {
 
     private static final Logger logger = LoggerFactory.getLogger(BucketController.class);
+
     private final BucketService bucketService;
+
     @Value("${server.port}")
     private String serverPort;
 
@@ -58,19 +60,4 @@ public class BucketController {
         return SysResponseUtils.success(sysRequest.getBizSeq(), "responsed by port :" + serverPort);
     }
 
-    @ApiOperation("从图床下载图片")
-    @RequestMapping(value = "/test", method = RequestMethod.POST)
-    public SysResponse test(@RequestBody Map<String, String[]> paramMap) {
-
-        for (String s : paramMap.keySet()) {
-            String[] v = paramMap.get(s);
-
-            logger.info("k = {}, v = {}", s, v);
-
-
-        }
-
-
-        return SysResponseUtils.success("1111111", "responsed by port :" + serverPort);
-    }
 }

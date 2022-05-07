@@ -2,6 +2,8 @@ package com.heart.photobucket.service.impl;
 
 import com.heart.photobucket.common.Constants;
 import com.heart.photobucket.common.SysProperties;
+import com.heart.photobucket.dao.PhotoMapper;
+import com.heart.photobucket.entity.Photo;
 import com.heart.photobucket.enums.ErrCodeEnums;
 import com.heart.photobucket.exceptions.SysException;
 import com.heart.photobucket.service.BucketService;
@@ -13,10 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * About:
@@ -30,9 +29,11 @@ public class BucketServiceImpl implements BucketService {
     private static final Logger logger = LoggerFactory.getLogger(BucketServiceImpl.class);
 
     private final SysProperties sysProperties;
+    private final PhotoMapper photoMapper;
 
-    public BucketServiceImpl(SysProperties sysProperties) {
+    public BucketServiceImpl(SysProperties sysProperties, PhotoMapper photoMapper) {
         this.sysProperties = sysProperties;
+        this.photoMapper = photoMapper;
     }
 
     @Override
@@ -69,6 +70,14 @@ public class BucketServiceImpl implements BucketService {
                 String fileUrl = sysProperties.getProperty("bucket.url") + "/" + date + "/" + multipartFile.getOriginalFilename();
                 successList.add(fileUrl);
 
+                Photo photo = new Photo();
+                photo.setPhotoName(multipartFile.getOriginalFilename());
+                photo.setPhotoUrl(fileUrl);
+                photo.setPhotoTarget(filePath);
+                photo.setPhotoStatus(Constants.STATUS_VALID);
+                photo.setCreateTime(new Date());
+
+                photoMapper.insert(photo);
             } catch (IOException e) {
                 logger.warn("file upload fail :{}, {}", multipartFile.getOriginalFilename(), e.getMessage());
                 failList.add(multipartFile.getOriginalFilename());

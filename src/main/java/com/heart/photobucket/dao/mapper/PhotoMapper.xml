@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.heart.photobucket.dao.PhotoMapper">
+    <resultMap id="BaseResultMap" type="com.heart.photobucket.entity.Photo">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="photo_id" jdbcType="VARCHAR" property="photoId"/>
+        <result column="photo_name" jdbcType="VARCHAR" property="photoName"/>
+        <result column="photo_desc" jdbcType="VARCHAR" property="photoDesc"/>
+        <result column="photo_source" jdbcType="VARCHAR" property="photoSource"/>
+        <result column="photo_target" jdbcType="VARCHAR" property="photoTarget"/>
+        <result column="photo_url" jdbcType="VARCHAR" property="photoUrl"/>
+        <result column="photo_size" jdbcType="BIGINT" property="photoSize"/>
+        <result column="photo_width" jdbcType="INTEGER" property="photoWidth"/>
+        <result column="photo_height" jdbcType="INTEGER" property="photoHeight"/>
+        <result column="photo_status" jdbcType="INTEGER" property="photoStatus"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, photo_id, photo_name, photo_desc, photo_source, photo_target, photo_url, photo_size,
+    photo_width, photo_height, photo_status, create_time, update_time
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_photo
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from t_photo
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.heart.photobucket.entity.Photo">
+        insert into t_photo (id, photo_id, photo_name,
+                             photo_desc, photo_source, photo_target,
+                             photo_url, photo_size, photo_width,
+                             photo_height, photo_status, create_time,
+                             update_time)
+        values (#{id,jdbcType=INTEGER}, #{photoId,jdbcType=VARCHAR}, #{photoName,jdbcType=VARCHAR},
+                #{photoDesc,jdbcType=VARCHAR}, #{photoSource,jdbcType=VARCHAR}, #{photoTarget,jdbcType=VARCHAR},
+                #{photoUrl,jdbcType=VARCHAR}, #{photoSize,jdbcType=BIGINT}, #{photoWidth,jdbcType=INTEGER},
+                #{photoHeight,jdbcType=INTEGER}, #{photoStatus,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP},
+                #{updateTime,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" parameterType="com.heart.photobucket.entity.Photo">
+        insert into t_photo
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="photoId != null">
+                photo_id,
+            </if>
+            <if test="photoName != null">
+                photo_name,
+            </if>
+            <if test="photoDesc != null">
+                photo_desc,
+            </if>
+            <if test="photoSource != null">
+                photo_source,
+            </if>
+            <if test="photoTarget != null">
+                photo_target,
+            </if>
+            <if test="photoUrl != null">
+                photo_url,
+            </if>
+            <if test="photoSize != null">
+                photo_size,
+            </if>
+            <if test="photoWidth != null">
+                photo_width,
+            </if>
+            <if test="photoHeight != null">
+                photo_height,
+            </if>
+            <if test="photoStatus != null">
+                photo_status,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="photoId != null">
+                #{photoId,jdbcType=VARCHAR},
+            </if>
+            <if test="photoName != null">
+                #{photoName,jdbcType=VARCHAR},
+            </if>
+            <if test="photoDesc != null">
+                #{photoDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="photoSource != null">
+                #{photoSource,jdbcType=VARCHAR},
+            </if>
+            <if test="photoTarget != null">
+                #{photoTarget,jdbcType=VARCHAR},
+            </if>
+            <if test="photoUrl != null">
+                #{photoUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="photoSize != null">
+                #{photoSize,jdbcType=BIGINT},
+            </if>
+            <if test="photoWidth != null">
+                #{photoWidth,jdbcType=INTEGER},
+            </if>
+            <if test="photoHeight != null">
+                #{photoHeight,jdbcType=INTEGER},
+            </if>
+            <if test="photoStatus != null">
+                #{photoStatus,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.heart.photobucket.entity.Photo">
+        update t_photo
+        <set>
+            <if test="photoId != null">
+                photo_id = #{photoId,jdbcType=VARCHAR},
+            </if>
+            <if test="photoName != null">
+                photo_name = #{photoName,jdbcType=VARCHAR},
+            </if>
+            <if test="photoDesc != null">
+                photo_desc = #{photoDesc,jdbcType=VARCHAR},
+            </if>
+            <if test="photoSource != null">
+                photo_source = #{photoSource,jdbcType=VARCHAR},
+            </if>
+            <if test="photoTarget != null">
+                photo_target = #{photoTarget,jdbcType=VARCHAR},
+            </if>
+            <if test="photoUrl != null">
+                photo_url = #{photoUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="photoSize != null">
+                photo_size = #{photoSize,jdbcType=BIGINT},
+            </if>
+            <if test="photoWidth != null">
+                photo_width = #{photoWidth,jdbcType=INTEGER},
+            </if>
+            <if test="photoHeight != null">
+                photo_height = #{photoHeight,jdbcType=INTEGER},
+            </if>
+            <if test="photoStatus != null">
+                photo_status = #{photoStatus,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.heart.photobucket.entity.Photo">
+        update t_photo
+        set photo_id     = #{photoId,jdbcType=VARCHAR},
+            photo_name   = #{photoName,jdbcType=VARCHAR},
+            photo_desc   = #{photoDesc,jdbcType=VARCHAR},
+            photo_source = #{photoSource,jdbcType=VARCHAR},
+            photo_target = #{photoTarget,jdbcType=VARCHAR},
+            photo_url    = #{photoUrl,jdbcType=VARCHAR},
+            photo_size   = #{photoSize,jdbcType=BIGINT},
+            photo_width  = #{photoWidth,jdbcType=INTEGER},
+            photo_height = #{photoHeight,jdbcType=INTEGER},
+            photo_status = #{photoStatus,jdbcType=INTEGER},
+            create_time  = #{createTime,jdbcType=TIMESTAMP},
+            update_time  = #{updateTime,jdbcType=TIMESTAMP}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+</mapper>
