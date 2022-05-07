@@ -1,11 +1,9 @@
 package com.heart.photobucket.controller;
 
-import cn.hutool.core.lang.Assert;
 import cn.hutool.json.JSONUtil;
 import com.heart.photobucket.model.SysRequest;
 import com.heart.photobucket.model.SysResponse;
 import com.heart.photobucket.service.BucketService;
-import com.heart.photobucket.utils.IpUtils;
 import com.heart.photobucket.utils.SysResponseUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -30,12 +28,10 @@ import java.util.Map;
 @RequestMapping("/bucket")
 public class BucketController {
 
+    private static final Logger logger = LoggerFactory.getLogger(BucketController.class);
+    private final BucketService bucketService;
     @Value("${server.port}")
     private String serverPort;
-
-    private static final Logger logger = LoggerFactory.getLogger(BucketController.class);
-
-    private final BucketService bucketService;
 
     public BucketController(BucketService bucketService) {
         this.bucketService = bucketService;
@@ -61,16 +57,17 @@ public class BucketController {
 
         return SysResponseUtils.success(sysRequest.getBizSeq(), "responsed by port :" + serverPort);
     }
+
     @ApiOperation("从图床下载图片")
     @RequestMapping(value = "/test", method = RequestMethod.POST)
-    public SysResponse test(@RequestBody Map<String,String[]> paramMap) {
+    public SysResponse test(@RequestBody Map<String, String[]> paramMap) {
 
         for (String s : paramMap.keySet()) {
             String[] v = paramMap.get(s);
 
-            logger.info("k = {}, v = {}",s,v);
+            logger.info("k = {}, v = {}", s, v);
 
-            
+
         }
 
 

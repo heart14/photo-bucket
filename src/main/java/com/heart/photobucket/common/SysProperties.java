@@ -18,7 +18,7 @@ public class SysProperties {
     public static Properties properties = new Properties();
     public static InputStream inputStream = SysProperties.class.getResourceAsStream("/system.properties");
 
-    static{
+    static {
         try {
             properties.load(inputStream);
         } catch (IOException e) {
@@ -26,7 +26,7 @@ public class SysProperties {
         }
     }
 
-    public String getProperty(String props){
+    public String getProperty(String props) {
         return properties.getProperty(props);
     }
 }
