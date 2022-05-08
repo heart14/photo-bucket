@@ -3,7 +3,6 @@ package com.heart.photobucket.service;
 import com.heart.photobucket.exceptions.SysException;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -14,5 +13,5 @@ import java.util.Map;
  */
 public interface BucketService {
 
-    Map<String, List<String>> upload(MultipartFile[] multipartFiles) throws SysException;
+    Map<String, Object> upload(MultipartFile[] multipartFiles) throws SysException;
 }

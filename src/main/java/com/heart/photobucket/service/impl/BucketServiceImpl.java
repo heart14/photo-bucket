@@ -8,8 +8,10 @@ import com.heart.photobucket.enums.ErrCodeEnums;
 import com.heart.photobucket.exceptions.SysException;
 import com.heart.photobucket.service.BucketService;
 import com.heart.photobucket.utils.DateUtils;
+import com.heart.photobucket.utils.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -37,7 +39,7 @@ public class BucketServiceImpl implements BucketService {
     }
 
     @Override
-    public Map<String, List<String>> upload(MultipartFile[] multipartFiles) throws SysException {
+    public Map<String, Object> upload(MultipartFile[] multipartFiles) throws SysException {
         if (multipartFiles == null) {
             throw new SysException(Constants.STATE_FAIL, ErrCodeEnums.PARAMS_EXCEPTION.getCode(), ErrCodeEnums.PARAMS_EXCEPTION.getMsg());
         }
@@ -60,31 +62,43 @@ public class BucketServiceImpl implements BucketService {
             logger.info("current dir create {}!", b ? "success" : "fail");
         }
 
-        List<String> successList = new ArrayList<>();
+        List<Photo> successList = new ArrayList<>();
         List<String> failList = new ArrayList<>();
         for (MultipartFile multipartFile : multipartFiles) {
-            String filePath = currentPath + "/" + multipartFile.getOriginalFilename();
-            try {
-                multipartFile.transferTo(new File(filePath));
 
-                String fileUrl = sysProperties.getProperty("bucket.url") + "/" + date + "/" + multipartFile.getOriginalFilename();
-                successList.add(fileUrl);
+            String contentType = multipartFile.getContentType();
 
-                Photo photo = new Photo();
-                photo.setPhotoName(multipartFile.getOriginalFilename());
-                photo.setPhotoUrl(fileUrl);
-                photo.setPhotoTarget(filePath);
-                photo.setPhotoStatus(Constants.STATUS_VALID);
-                photo.setCreateTime(new Date());
+            if (MediaType.IMAGE_JPEG_VALUE.equalsIgnoreCase(contentType) ||
+                    MediaType.IMAGE_PNG_VALUE.equalsIgnoreCase(contentType) ||
+                    MediaType.IMAGE_GIF_VALUE.equalsIgnoreCase(contentType)) {
+                String originalFilename = multipartFile.getOriginalFilename();
+                String filePath = currentPath + "/" + originalFilename;
+                try {
+                    multipartFile.transferTo(new File(filePath));
 
-                photoMapper.insert(photo);
-            } catch (IOException e) {
-                logger.warn("file upload fail :{}, {}", multipartFile.getOriginalFilename(), e.getMessage());
-                failList.add(multipartFile.getOriginalFilename());
+                    String fileUrl = sysProperties.getProperty("bucket.url") + "/" + date + "/" + originalFilename;
+
+                    Photo photo = new Photo();
+                    photo.setPhotoId(StringUtils.Uuid());
+                    photo.setPhotoName(originalFilename);
+                    photo.setPhotoDesc(originalFilename);
+                    photo.setPhotoSource("");
+                    photo.setPhotoTarget(filePath);
+                    photo.setPhotoUrl(fileUrl);
+                    photo.setPhotoSize(multipartFile.getSize());
+                    photo.setPhotoStatus(Constants.STATUS_VALID);
+                    photo.setCreateTime(new Date());
+
+                    photoMapper.insert(photo);
+                    successList.add(photo);
+                } catch (IOException e) {
+                    logger.warn("file upload fail :{}, {}", originalFilename, e.getMessage());
+                    failList.add(originalFilename);
+                }
             }
         }
 
-        Map<String, List<String>> resultMap = new HashMap<>(2);
+        Map<String, Object> resultMap = new HashMap<>(2);
         resultMap.put("successList", successList);
         resultMap.put("failList", failList);
 

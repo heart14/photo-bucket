@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -43,12 +42,12 @@ public class BucketController {
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
     public SysResponse uploadToBucket(@RequestParam("multipartFiles") MultipartFile[] multipartFiles, HttpServletRequest request) {
 
-        Map<String, List<String>> upload = bucketService.upload(multipartFiles);
+        Map<String, Object> result = bucketService.upload(multipartFiles);
 
         String parameter = request.getParameter("sysRequest");
         SysRequest sysRequest = JSONUtil.toBean(parameter, SysRequest.class);
 
-        return SysResponseUtils.success(sysRequest.getBizSeq(), upload);
+        return SysResponseUtils.success(sysRequest.getBizSeq(), result);
     }
 
     @ApiOperation("从图床下载图片")
