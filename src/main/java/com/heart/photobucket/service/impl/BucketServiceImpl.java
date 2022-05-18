@@ -79,7 +79,7 @@ public class BucketServiceImpl implements BucketService {
                     String fileUrl = sysProperties.getProperty("bucket.url") + "/" + date + "/" + originalFilename;
 
                     Photo photo = new Photo();
-                    photo.setPhotoId(StringUtils.Uuid());
+                    photo.setPhotoId(StringUtils.UuidLowerCase());
                     photo.setPhotoName(originalFilename);
                     photo.setPhotoDesc(originalFilename);
                     photo.setPhotoSource("");

@@ -10,7 +10,11 @@ import java.util.UUID;
  */
 public class StringUtils {
 
-    public static String Uuid() {
+    public static String UuidUpperCase() {
         return UUID.randomUUID().toString().replace("-", "").toUpperCase();
+    }
+
+    public static String UuidLowerCase() {
+        return UUID.randomUUID().toString().replace("-", "").toLowerCase();
     }
 }
