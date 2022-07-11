@@ -47,7 +47,7 @@ public class BucketController {
         String parameter = request.getParameter("sysRequest");
         SysRequest sysRequest = JSONUtil.toBean(parameter, SysRequest.class);
 
-        return SysResponseUtils.success(sysRequest.getBizSeq(), result);
+        return SysResponseUtils.success(sysRequest.getTraceId(), result);
     }
 
     @ApiOperation("从图床下载图片")
@@ -56,7 +56,7 @@ public class BucketController {
 
         logger.info("test proxy balance ：{}", sysRequest);
 
-        return SysResponseUtils.success(sysRequest.getBizSeq(), "responsed by port :" + serverPort);
+        return SysResponseUtils.success(sysRequest.getTraceId(), "responsed by port :" + serverPort);
     }
 
 }

@@ -50,11 +50,11 @@ public class LogAspect {
         Object[] args = joinPoint.getArgs();
         if (args[0] instanceof SysRequest) {
             SysRequest arg = (SysRequest) args[0];
-            log.info("[{}] Request from :{}, request time :{}, request method :{}, request path :{}, request resource :{}, request params :{}", arg.getBizSeq(), IpUtils.getIpAddr(request), LocalDateTime.now(), request.getMethod(), request.getRequestURL(), joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName(), Arrays.toString(args));
+            log.info("[{}] Request from :{}, request time :{}, request method :{}, request path :{}, request resource :{}, request params :{}", arg.getTraceId(), IpUtils.getIpAddr(request), LocalDateTime.now(), request.getMethod(), request.getRequestURL(), joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName(), Arrays.toString(args));
         } else {
             String sysRequest = request.getParameter("sysRequest");
             SysRequest bean = JSONUtil.toBean(sysRequest, SysRequest.class);
-            log.info("[{}] Request from :{}, request time :{}, request method :{}, request path :{}, request resource :{}, request params :{}", bean.getBizSeq(), IpUtils.getIpAddr(request), LocalDateTime.now(), request.getMethod(), request.getRequestURL(), joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName(), bean);
+            log.info("[{}] Request from :{}, request time :{}, request method :{}, request path :{}, request resource :{}, request params :{}", bean.getTraceId(), IpUtils.getIpAddr(request), LocalDateTime.now(), request.getMethod(), request.getRequestURL(), joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName(), bean);
         }
     }
 

@@ -26,14 +26,14 @@ public class SysRequest implements Serializable {
     @ApiModelProperty("时间戳")
     private Long timestamp;
 
-    @ApiModelProperty("请求命令")
-    private String bizCmd;
-
     @ApiModelProperty("请求ID")
-    private String bizSeq;
+    private String traceId;
+
+    @ApiModelProperty("请求命令")
+    private String cmd;
 
     @ApiModelProperty("请求参数")
-    private String bizParam;
+    private String biz;
 
     public SysRequest() {
     }
@@ -62,32 +62,32 @@ public class SysRequest implements Serializable {
         this.timestamp = timestamp;
     }
 
-    public String getBizCmd() {
-        return bizCmd;
+    public String getCmd() {
+        return cmd;
     }
 
-    public void setBizCmd(String bizCmd) {
-        this.bizCmd = bizCmd;
+    public void setCmd(String cmd) {
+        this.cmd = cmd;
     }
 
-    public String getBizSeq() {
-        return bizSeq;
+    public String getTraceId() {
+        return traceId;
     }
 
-    public void setBizSeq(String bizSeq) {
-        this.bizSeq = bizSeq;
-
-        if (bizSeq == null || bizSeq.trim().length() == 0) {
-            this.bizSeq = UUID.randomUUID().toString().replace("-", "").toUpperCase();
-        }
+    public void setTraceId(String traceId) {
+        this.traceId = traceId;
+//
+//        if (traceId == null || traceId.trim().length() == 0) {
+//            this.traceId = UUID.randomUUID().toString().replace("-", "").toUpperCase();
+//        }
     }
 
-    public String getBizParam() {
-        return bizParam;
+    public String getBiz() {
+        return biz;
     }
 
-    public void setBizParam(String bizParam) {
-        this.bizParam = bizParam;
+    public void setBiz(String biz) {
+        this.biz = biz;
     }
 
     @Override
@@ -96,9 +96,9 @@ public class SysRequest implements Serializable {
                 "ver='" + ver + '\'' +
                 ", sign='" + sign + '\'' +
                 ", timestamp=" + timestamp +
-                ", bizCmd='" + bizCmd + '\'' +
-                ", bizSeq='" + bizSeq + '\'' +
-                ", bizParam='" + bizParam + '\'' +
+                ", bizCmd='" + cmd + '\'' +
+                ", bizSeq='" + traceId + '\'' +
+                ", bizParam='" + biz + '\'' +
                 '}';
     }
 }
