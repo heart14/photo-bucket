@@ -10,27 +10,15 @@ public class SysException extends RuntimeException {
 
     private static final long serialVersionUID = 29695942793488621L;
 
-    private String state;
-
     private Integer code;
 
-    public SysException(String state, Integer code) {
-        this.state = state;
+    public SysException(Integer code) {
         this.code = code;
     }
 
-    public SysException(String state, Integer code, String message) {
+    public SysException(Integer code, String message) {
         super(message);
-        this.state = state;
         this.code = code;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
     }
 
     public Integer getCode() {

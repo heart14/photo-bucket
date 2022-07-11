@@ -41,7 +41,7 @@ public class BucketServiceImpl implements BucketService {
     @Override
     public Map<String, Object> upload(MultipartFile[] multipartFiles) throws SysException {
         if (multipartFiles == null) {
-            throw new SysException(Constants.STATE_FAIL, ErrCodeEnums.PARAMS_EXCEPTION.getCode(), ErrCodeEnums.PARAMS_EXCEPTION.getMsg());
+            throw new SysException(ErrCodeEnums.PARAMS_EXCEPTION.getCode(), ErrCodeEnums.PARAMS_EXCEPTION.getMsg());
         }
 
         //获取配置文件中图片上传目录

@@ -23,7 +23,7 @@ public class SysExceptionHandler {
     public SysResponse sysExceptionHandler(SysException e) {
         //手动抛出自定异常
         log.error("自定异常 :{}", e.getMessage(), e);
-        return SysResponseUtils.fail(e.getState(), e.getCode(), e.getMessage(), null);
+        return SysResponseUtils.fail(e.getCode(), e.getMessage(), null);
     }
 
     @ExceptionHandler({Exception.class})
