@@ -1,16 +1,13 @@
 package com.heart.photobucket.aspect;
 
-import cn.hutool.json.JSONUtil;
-import com.heart.photobucket.model.SysRequest;
-import com.heart.photobucket.model.SysResponse;
+import com.heart.photobucket.common.Constants;
 import com.heart.photobucket.utils.IpUtils;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.AfterReturning;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -18,6 +15,8 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.Locale;
+import java.util.UUID;
 
 /**
  * About:
@@ -31,11 +30,28 @@ public class LogAspect {
 
     private static final Logger log = LoggerFactory.getLogger(LogAspect.class);
 
+    public static final String TRACE_ID = "traceId";
+
     /**
      * 切面织入点
      */
     @Pointcut("execution(public * com.heart.photobucket.controller..*.*(..))")
     public void controllerLog() {
+    }
+
+    /**
+     * slf4j线程常量切面 在每个请求线程里加上traceId
+     * @param point
+     * @return
+     * @throws Throwable
+     */
+    @Around("controllerLog()")
+    public Object around(ProceedingJoinPoint point) throws Throwable {
+        String uuid = UUID.randomUUID().toString().replace("-", "").toLowerCase(Locale.ROOT);
+        MDC.put(Constants.FIELD_MDC_TRACE_ID, uuid);
+        Object proceed = point.proceed();
+        MDC.remove(Constants.FIELD_MDC_TRACE_ID);
+        return proceed;
     }
 
     /**
@@ -48,14 +64,7 @@ public class LogAspect {
         ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = servletRequestAttributes.getRequest();
         Object[] args = joinPoint.getArgs();
-        if (args[0] instanceof SysRequest) {
-            SysRequest arg = (SysRequest) args[0];
-            log.info("[{}] Request from :{}, request time :{}, request method :{}, request path :{}, request resource :{}, request params :{}", arg.getTraceId(), IpUtils.getIpAddr(request), LocalDateTime.now(), request.getMethod(), request.getRequestURL(), joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName(), Arrays.toString(args));
-        } else {
-            String sysRequest = request.getParameter("sysRequest");
-            SysRequest bean = JSONUtil.toBean(sysRequest, SysRequest.class);
-            log.info("[{}] Request from :{}, request time :{}, request method :{}, request path :{}, request resource :{}, request params :{}", bean.getTraceId(), IpUtils.getIpAddr(request), LocalDateTime.now(), request.getMethod(), request.getRequestURL(), joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName(), bean);
-        }
+        log.info("Request from :{}, request time :{}, request method :{}, request path :{}, request resource :{}, request params :{}", IpUtils.getIpAddr(request), LocalDateTime.now(), request.getMethod(), request.getRequestURL(), joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName(), Arrays.toString(args));
     }
 
     /**
@@ -65,12 +74,7 @@ public class LogAspect {
      */
     @AfterReturning(returning = "resp", pointcut = "controllerLog()")
     public void doAfterReturning(Object resp) {
-        if (resp instanceof SysResponse) {
-            SysResponse sysResponse = (SysResponse) resp;
-            log.info("[{}] Response :{}", sysResponse.getState(), sysResponse);
-        } else {
-            log.info("[{}] Response :{}", "-", resp);
-        }
+        log.info("Response :{}", resp);
     }
 
     /**

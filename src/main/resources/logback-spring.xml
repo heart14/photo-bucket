@@ -6,7 +6,7 @@
     <appender name="CONSOLE-LOG" class="ch.qos.logback.core.ConsoleAppender">
         <layout class="ch.qos.logback.classic.PatternLayout">
             <pattern>
-                %d{yyyy-MM-dd' 'HH:mm:ss.sss} %green(%-5p) %magenta(${PID:- }) --- [%24t] %cyan(%-48C{48}%4L) :%m%n
+                %d{yyyy-MM-dd' 'HH:mm:ss.sss} %green(%-5p) %magenta(${PID:- }) --- [%24t] %cyan(%-48C{48}%4L) :[%X{traceId}]%m%n
             </pattern>
         </layout>
     </appender>

@@ -19,4 +19,9 @@ public class Constants {
      */
     public static final int STATUS_VALID = 1;
     public static final int STATUS_INVALID = 0;
+
+    /**
+     * slf4j日志框架MDC常量字段名
+     */
+    public static final String FIELD_MDC_TRACE_ID = "traceId";
 }
