@@ -1,5 +1,8 @@
 package com.heart.photobucket.pool;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 /**
  * About: 封装线程池
  * Other:
@@ -7,5 +10,7 @@ package com.heart.photobucket.pool;
  * Editored:
  */
 public class SysThreadPoolExecutor {
+
+    public static final Logger log = LoggerFactory.getLogger(SysThreadPoolExecutor.class);
 
 }
