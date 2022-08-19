@@ -18,6 +18,8 @@ import springfox.documentation.spring.web.plugins.Docket;
  */
 @Configuration
 public class SwaggerConfig {
+
+    //swagger接口文档地址
     //http://localhost:9999/swagger-ui/index.html
 
     @Bean
