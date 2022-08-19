@@ -30,8 +30,6 @@ public class LogAspect {
 
     private static final Logger log = LoggerFactory.getLogger(LogAspect.class);
 
-    public static final String TRACE_ID = "traceId";
-
     /**
      * 切面织入点
      */
