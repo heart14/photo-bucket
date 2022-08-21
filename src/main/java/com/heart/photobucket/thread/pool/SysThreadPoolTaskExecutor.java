@@ -22,39 +22,21 @@ public class SysThreadPoolTaskExecutor extends ThreadPoolTaskExecutorMdcWrapper 
 
     @Override
     public void execute(Runnable task) {
+        log.debug(" *** sysThreadPoolTaskExecutor executed Runnable task");
         //执行包装后的线程任务类
         super.execute(ThreadPoolMdcUtils.wrap(task, MDC.getCopyOfContextMap()));
     }
 
     @Override
     public Future<?> submit(Runnable task) {
+        log.debug(" *** sysThreadPoolTaskExecutor submitted Runnable task");
         return super.submit(ThreadPoolMdcUtils.wrap(task, MDC.getCopyOfContextMap()));
     }
 
     @Override
     public <T> Future<T> submit(Callable<T> task) {
+        log.debug(" *** sysThreadPoolTaskExecutor submitted Callable<T> task");
         return super.submit(ThreadPoolMdcUtils.wrap(task, MDC.getCopyOfContextMap()));
     }
 
-
-    //    @Override
-//    public void execute(Runnable task) {
-//        //执行包装后的线程任务类
-//        super.execute(ThreadPoolMdcUtils.wrap(task, MDC.getCopyOfContextMap()));
-//    }
-//
-//    @Override
-//    public <T> Future<T> submit(Runnable task, T result) {
-//        return super.submit(ThreadPoolMdcUtils.wrap(task, MDC.getCopyOfContextMap()), result);
-//    }
-//
-//    @Override
-//    public Future<?> submit(Runnable task) {
-//        return super.submit(ThreadPoolMdcUtils.wrap(task, MDC.getCopyOfContextMap()));
-//    }
-//
-//    @Override
-//    public <T> Future<T> submit(Callable<T> task) {
-//        return super.submit(ThreadPoolMdcUtils.wrap(task, MDC.getCopyOfContextMap()));
-//    }
 }
