@@ -70,4 +70,21 @@ public class TestController {
         return SysResponseUtils.success("responsed by port :" + serverPort);
     }
 
+    @ApiOperation("exception test")
+    @RequestMapping(value = "/exception", method = RequestMethod.POST)
+    public SysResponse exception() {
+        int a = 1 / 0;
+        return SysResponseUtils.success("responsed by port :" + serverPort);
+    }
+
+    @ApiOperation("checkedException test")
+    @RequestMapping(value = "/exception/checked", method = RequestMethod.POST)
+    public SysResponse checkedException() {
+        try {
+            int a = 1 / 0;
+        } catch (Exception e) {
+            throw new SysException(ErrCodeEnums.PARAMS_EXCEPTION.getCode(), ErrCodeEnums.PARAMS_EXCEPTION.getMsg());
+        }
+        return SysResponseUtils.success("responsed by port :" + serverPort);
+    }
 }
