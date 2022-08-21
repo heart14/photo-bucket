@@ -4,7 +4,7 @@ import com.heart.photobucket.enums.ErrCodeEnums;
 import com.heart.photobucket.exceptions.SysException;
 import com.heart.photobucket.model.SysRequest;
 import com.heart.photobucket.model.SysResponse;
-import com.heart.photobucket.pool.SysThreadPoolExecutor;
+import com.heart.photobucket.pool.SysThreadPoolTaskExecutor;
 import com.heart.photobucket.utils.SysResponseUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -30,9 +30,9 @@ public class TestController {
     @Value("${server.port}")
     private String serverPort;
 
-    private final SysThreadPoolExecutor threadPoolExecutor;
+    private final SysThreadPoolTaskExecutor threadPoolExecutor;
 
-    public TestController(SysThreadPoolExecutor threadPoolExecutor) {
+    public TestController(SysThreadPoolTaskExecutor threadPoolExecutor) {
         this.threadPoolExecutor = threadPoolExecutor;
     }
 
