@@ -2,6 +2,7 @@ package com.heart.photobucket.aspect;
 
 import com.heart.photobucket.common.Constants;
 import com.heart.photobucket.utils.IpUtils;
+import com.heart.photobucket.utils.StringUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
@@ -15,8 +16,6 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.Arrays;
-import java.util.Locale;
-import java.util.UUID;
 
 /**
  * About:
@@ -39,13 +38,14 @@ public class LogAspect {
 
     /**
      * slf4j线程常量切面 在每个请求线程里加上traceId
+     *
      * @param point
      * @return
      * @throws Throwable
      */
     @Around("controllerLog()")
     public Object around(ProceedingJoinPoint point) throws Throwable {
-        String uuid = UUID.randomUUID().toString().replace("-", "").toLowerCase(Locale.ROOT);
+        String uuid = StringUtils.UuidLowerCase();
         MDC.put(Constants.FIELD_MDC_TRACE_ID, uuid);
         Object proceed = point.proceed();
         MDC.remove(Constants.FIELD_MDC_TRACE_ID);
