@@ -79,4 +79,7 @@
         <appender-ref ref="INFO-LOG"/>
         <appender-ref ref="ERROR-LOG"/>
     </root>
+
+    <!--TODO debug级别日志输出打印-->
+
 </configuration>
