@@ -1,4 +1,4 @@
-package com.heart.photobucket.pool;
+package com.heart.photobucket.thread.pool;
 
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 

@@ -4,7 +4,7 @@ import com.heart.photobucket.enums.ErrCodeEnums;
 import com.heart.photobucket.exceptions.SysException;
 import com.heart.photobucket.model.SysRequest;
 import com.heart.photobucket.model.SysResponse;
-import com.heart.photobucket.pool.SysThreadPoolTaskExecutor;
+import com.heart.photobucket.thread.pool.SysThreadPoolTaskExecutor;
 import com.heart.photobucket.utils.SysResponseUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
