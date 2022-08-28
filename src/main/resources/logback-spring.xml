@@ -69,10 +69,11 @@
         <appender-ref ref="ERROR-LOG"/>
     </appender>
 
-        <!--Mybatis SQL语句打印-->
-        <logger name="com.heart.photobucket.dao" level="DEBUG" additivity="false">
-            <appender-ref ref="CONSOLE-LOG"/>
-        </logger>
+    <!--Mybatis SQL语句打印-->
+    <logger name="com.heart.photobucket.dao" level="DEBUG" additivity="false">
+        <appender-ref ref="CONSOLE-LOG"/>
+    </logger>
+
 
     <root level="info">
         <appender-ref ref="CONSOLE-LOG"/>
