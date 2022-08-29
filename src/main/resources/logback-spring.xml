@@ -174,16 +174,16 @@ ALL < TRACE < DEBUG < INFO < WARN < ERROR < FATAL < OFF
     同<logger>一样，可以包含零个或多个<appender-ref>元素，标识这个appender将会添加到这个logger。
     -->
 <!--    开发环境,只开启控制台输出,不生成文件-->
-    <root level="DEBUG">
-        <appender-ref ref="CONSOLE-LOG"/>
-    </root>
+<!--    <root level="DEBUG">-->
+<!--        <appender-ref ref="CONSOLE-LOG"/>-->
+<!--    </root>-->
 
 <!--    测试环境配置:日志级别设置为INFO,防止生成大量日志数据占用空间-->
-<!--    <root level="INFO">-->
-<!--        <appender-ref ref="CONSOLE-LOG"/>-->
-<!--        <appender-ref ref="FILE-ALL-LOG"/>-->
-<!--        <appender-ref ref="FILE-ERROR-LOG"/>-->
-<!--    </root>-->
+    <root level="INFO">
+        <appender-ref ref="CONSOLE-LOG"/>
+        <appender-ref ref="ASYNC-FILE-ALL"/>
+        <appender-ref ref="ASYNC-FILE-ERROR"/>
+    </root>
 
 
     <!--
