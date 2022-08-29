@@ -104,4 +104,10 @@ public class BucketServiceImpl implements BucketService {
 
         return resultMap;
     }
+
+    @Override
+    public List<Photo> queryPhotoList(Integer photoStatus) throws SysException {
+        return photoMapper.selectAllByPhotoStatus(photoStatus);
+    }
+
 }

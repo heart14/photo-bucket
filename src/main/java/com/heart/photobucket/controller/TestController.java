@@ -1,9 +1,12 @@
 package com.heart.photobucket.controller;
 
+import cn.hutool.json.JSONObject;
+import com.heart.photobucket.entity.Photo;
 import com.heart.photobucket.enums.ErrCodeEnums;
 import com.heart.photobucket.exceptions.SysException;
 import com.heart.photobucket.model.SysRequest;
 import com.heart.photobucket.model.SysResponse;
+import com.heart.photobucket.service.BucketService;
 import com.heart.photobucket.thread.pool.SysThreadPoolTaskExecutor;
 import com.heart.photobucket.utils.SysResponseUtils;
 import io.swagger.annotations.Api;
@@ -13,6 +16,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 /**
  * About:
@@ -31,9 +36,11 @@ public class TestController {
     private String serverPort;
 
     private final SysThreadPoolTaskExecutor threadPoolExecutor;
+    private final BucketService bucketService;
 
-    public TestController(SysThreadPoolTaskExecutor threadPoolExecutor) {
+    public TestController(SysThreadPoolTaskExecutor threadPoolExecutor, BucketService bucketService) {
         this.threadPoolExecutor = threadPoolExecutor;
+        this.bucketService = bucketService;
     }
 
     @ApiOperation("GET TEST")
@@ -86,5 +93,14 @@ public class TestController {
             throw new SysException(ErrCodeEnums.PARAMS_EXCEPTION.getCode(), ErrCodeEnums.PARAMS_EXCEPTION.getMsg());
         }
         return SysResponseUtils.success("responsed by port :" + serverPort);
+    }
+
+    @ApiOperation("db test")
+    @RequestMapping(value = "/db", method = RequestMethod.POST)
+    public SysResponse db(@RequestBody SysRequest sysRequest) {
+        Object biz = sysRequest.getBiz();
+        Integer photoStatus = new JSONObject(biz).getInt("photoStatus", 0);
+        List<Photo> photos = bucketService.queryPhotoList(photoStatus);
+        return SysResponseUtils.success(photos);
     }
 }

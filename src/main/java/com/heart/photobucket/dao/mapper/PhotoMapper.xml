@@ -186,4 +186,12 @@
             update_time  = #{updateTime,jdbcType=TIMESTAMP}
         where id = #{id,jdbcType=INTEGER}
     </update>
+
+    <select id="selectAllByPhotoStatus" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_photo
+        where photo_status = #{photoStatus,jdbcType=INTEGER}
+    </select>
+
 </mapper>

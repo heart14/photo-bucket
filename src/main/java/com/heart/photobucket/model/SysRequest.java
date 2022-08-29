@@ -33,7 +33,7 @@ public class SysRequest implements Serializable {
     private String cmd;
 
     @ApiModelProperty("请求参数")
-    private String biz;
+    private Object biz;
 
     public SysRequest() {
     }
@@ -82,11 +82,11 @@ public class SysRequest implements Serializable {
 //        }
     }
 
-    public String getBiz() {
+    public Object getBiz() {
         return biz;
     }
 
-    public void setBiz(String biz) {
+    public void setBiz(Object biz) {
         this.biz = biz;
     }
 
