@@ -133,4 +133,23 @@ public class Photo {
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
     }
+
+    @Override
+    public String toString() {
+        return "Photo{" +
+                "id=" + id +
+                ", photoId='" + photoId + '\'' +
+                ", photoName='" + photoName + '\'' +
+                ", photoDesc='" + photoDesc + '\'' +
+                ", photoSource='" + photoSource + '\'' +
+                ", photoTarget='" + photoTarget + '\'' +
+                ", photoUrl='" + photoUrl + '\'' +
+                ", photoSize=" + photoSize +
+                ", photoWidth=" + photoWidth +
+                ", photoHeight=" + photoHeight +
+                ", photoStatus=" + photoStatus +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                '}';
+    }
 }
