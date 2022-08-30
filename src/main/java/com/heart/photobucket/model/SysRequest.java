@@ -4,7 +4,6 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
-import java.util.UUID;
 
 /**
  * About:
@@ -25,9 +24,6 @@ public class SysRequest implements Serializable {
 
     @ApiModelProperty("时间戳")
     private Long timestamp;
-
-    @ApiModelProperty("请求ID")
-    private String traceId;
 
     @ApiModelProperty("请求命令")
     private String cmd;
@@ -70,18 +66,6 @@ public class SysRequest implements Serializable {
         this.cmd = cmd;
     }
 
-    public String getTraceId() {
-        return traceId;
-    }
-
-    public void setTraceId(String traceId) {
-        this.traceId = traceId;
-//
-//        if (traceId == null || traceId.trim().length() == 0) {
-//            this.traceId = UUID.randomUUID().toString().replace("-", "").toUpperCase();
-//        }
-    }
-
     public Object getBiz() {
         return biz;
     }
@@ -96,9 +80,8 @@ public class SysRequest implements Serializable {
                 "ver='" + ver + '\'' +
                 ", sign='" + sign + '\'' +
                 ", timestamp=" + timestamp +
-                ", bizCmd='" + cmd + '\'' +
-                ", bizSeq='" + traceId + '\'' +
-                ", bizParam='" + biz + '\'' +
+                ", cmd='" + cmd + '\'' +
+                ", biz=" + biz +
                 '}';
     }
 }

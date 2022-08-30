@@ -16,21 +16,12 @@ public class SysResponseUtils {
         return success(null);
     }
 
-
     public static SysResponse success(Object data) {
-        return success(Constants.STATE_SUCCESS, ErrCodeEnums.SUCCESS.getCode(), ErrCodeEnums.SUCCESS.getMsg(), data);
-    }
-
-    public static SysResponse success(String state, Object data) {
-        return success(Constants.STATE_SUCCESS + "[" + state + "]", ErrCodeEnums.SUCCESS.getCode(), ErrCodeEnums.SUCCESS.getMsg(), data);
+        return success(ErrCodeEnums.SUCCESS.getCode(), ErrCodeEnums.SUCCESS.getMsg(), data);
     }
 
     public static SysResponse success(int code, String msg, Object data) {
         return new SysResponse(Constants.STATE_SUCCESS, code, msg, data);
-    }
-
-    public static SysResponse success(String state, int code, String msg, Object data) {
-        return new SysResponse(state, code, msg, data);
     }
 
     public static SysResponse fail() {
@@ -42,10 +33,7 @@ public class SysResponseUtils {
     }
 
     public static SysResponse fail(int code, String msg, Object data) {
-        return fail(Constants.STATE_FAIL, code, msg, data);
+        return new SysResponse(Constants.STATE_FAIL, code, msg, data);
     }
 
-    public static SysResponse fail(String state, int code, String msg, Object data) {
-        return new SysResponse(state, code, msg, data);
-    }
 }

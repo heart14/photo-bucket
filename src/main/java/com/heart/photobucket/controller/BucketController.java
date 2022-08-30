@@ -1,6 +1,5 @@
 package com.heart.photobucket.controller;
 
-import cn.hutool.json.JSONUtil;
 import com.heart.photobucket.model.SysRequest;
 import com.heart.photobucket.model.SysResponse;
 import com.heart.photobucket.service.BucketService;
@@ -13,7 +12,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 /**
@@ -27,7 +25,7 @@ import java.util.Map;
 @RequestMapping("/bucket")
 public class BucketController {
 
-    private static final Logger logger = LoggerFactory.getLogger(BucketController.class);
+    private static final Logger log = LoggerFactory.getLogger(BucketController.class);
 
     private final BucketService bucketService;
 
@@ -40,23 +38,15 @@ public class BucketController {
 
     @ApiOperation("图片上传至图床")
     @RequestMapping(value = "/upload", method = RequestMethod.POST)
-    public SysResponse uploadToBucket(@RequestParam("multipartFiles") MultipartFile[] multipartFiles, HttpServletRequest request) {
-
+    public SysResponse uploadToBucket(@RequestParam("multipartFiles") MultipartFile[] multipartFiles) {
         Map<String, Object> result = bucketService.upload(multipartFiles);
-
-        String parameter = request.getParameter("sysRequest");
-        SysRequest sysRequest = JSONUtil.toBean(parameter, SysRequest.class);
-
-        return SysResponseUtils.success(sysRequest.getTraceId(), result);
+        return SysResponseUtils.success(result);
     }
 
     @ApiOperation("从图床下载图片")
     @RequestMapping(value = "/download", method = RequestMethod.POST)
     public SysResponse downloadFromBucket(@RequestBody SysRequest sysRequest) {
-
-        logger.info("test proxy balance ：{}", sysRequest);
-
-        return SysResponseUtils.success(sysRequest.getTraceId(), "responsed by port :" + serverPort);
+        return SysResponseUtils.success("responsed by port :" + serverPort);
     }
 
 }

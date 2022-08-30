@@ -28,6 +28,7 @@ public class SysExceptionHandler {
     public SysResponse sysExceptionHandler(SysException e) {
         //手动抛出自定异常
         log.error("自定异常 :{}", e.getMessage(), e);
+        //异常时返回日志traceId
         Map<String, String> map = new HashMap<>();
         map.put(Constants.FIELD_MDC_TRACE_ID, MDC.get(Constants.FIELD_MDC_TRACE_ID));
         return SysResponseUtils.fail(e.getCode(), e.getMessage(), map);
@@ -37,6 +38,7 @@ public class SysExceptionHandler {
     public SysResponse exceptionHandler(Exception e) {
         //系统异常
         log.error("系统异常 :{}", e.getMessage(), e);
+        //异常时返回日志traceId
         Map<String, String> map = new HashMap<>();
         map.put(Constants.FIELD_MDC_TRACE_ID, MDC.get(Constants.FIELD_MDC_TRACE_ID));
         return SysResponseUtils.fail(ErrCodeEnums.SYSTEM_EXCEPTION.getCode(), ErrCodeEnums.SYSTEM_EXCEPTION.getMsg(), map);
