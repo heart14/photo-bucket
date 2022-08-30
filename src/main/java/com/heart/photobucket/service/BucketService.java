@@ -25,6 +25,23 @@ public interface BucketService {
     Map<String, Object> upload(MultipartFile[] multipartFiles) throws SysException;
 
     /**
+     * 下载单个图片
+     *
+     * @param photoId
+     * @throws SysException
+     */
+    void download(String photoId) throws SysException;
+
+    /**
+     * 根据图片id查询图片信息
+     *
+     * @param photoId
+     * @return
+     * @throws SysException
+     */
+    Photo queryPhotoById(String photoId) throws SysException;
+
+    /**
      * 查询图片列表
      *
      * @param photoStatus

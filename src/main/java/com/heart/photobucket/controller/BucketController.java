@@ -1,5 +1,9 @@
 package com.heart.photobucket.controller;
 
+import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.json.JSONObject;
+import com.heart.photobucket.domain.PhotoVO;
+import com.heart.photobucket.entity.Photo;
 import com.heart.photobucket.model.SysRequest;
 import com.heart.photobucket.model.SysResponse;
 import com.heart.photobucket.service.BucketService;
@@ -46,7 +50,12 @@ public class BucketController {
     @ApiOperation("从图床下载图片")
     @RequestMapping(value = "/download", method = RequestMethod.POST)
     public SysResponse downloadFromBucket(@RequestBody SysRequest sysRequest) {
-        return SysResponseUtils.success("responsed by port :" + serverPort);
+        String photoId = new JSONObject(sysRequest.getBiz()).getStr("photoId", "");
+        Photo photo = bucketService.queryPhotoById(photoId);
+
+        PhotoVO photoVO = new PhotoVO();
+        BeanUtil.copyProperties(photo, photoVO);
+        return SysResponseUtils.success(photoVO);
     }
 
 }

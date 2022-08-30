@@ -106,6 +106,16 @@ public class BucketServiceImpl implements BucketService {
     }
 
     @Override
+    public void download(String photoId) throws SysException {
+
+    }
+
+    @Override
+    public Photo queryPhotoById(String photoId) throws SysException {
+        return photoMapper.selectByPhotoId(photoId);
+    }
+
+    @Override
     public List<Photo> queryPhotoList(Integer photoStatus) throws SysException {
         return photoMapper.selectAllByPhotoStatus(photoStatus);
     }

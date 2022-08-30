@@ -25,6 +25,14 @@ public interface PhotoMapper {
     // custom
 
     /**
+     * 根据photoId查询图片
+     *
+     * @param photoId
+     * @return
+     */
+    Photo selectByPhotoId(String photoId);
+
+    /**
      * 查询所有记录
      *
      * @param photoStatus 图片状态
