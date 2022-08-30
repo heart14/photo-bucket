@@ -1,5 +1,6 @@
 package com.heart.photobucket.service.impl;
 
+import cn.hutool.core.lang.Assert;
 import com.heart.photobucket.common.Constants;
 import com.heart.photobucket.common.SysProperties;
 import com.heart.photobucket.dao.PhotoMapper;
@@ -112,7 +113,11 @@ public class BucketServiceImpl implements BucketService {
 
     @Override
     public Photo queryPhotoById(String photoId) throws SysException {
-        return photoMapper.selectByPhotoId(photoId);
+        //TODO 自定义Assert
+        Assert.notBlank(photoId);
+        Photo photo = photoMapper.selectByPhotoId(photoId);
+        Assert.notNull(photo);
+        return photo;
     }
 
     @Override
