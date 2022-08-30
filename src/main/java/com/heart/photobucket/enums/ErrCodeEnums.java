@@ -26,7 +26,12 @@ public enum ErrCodeEnums {
     /**
      * 参数异常，ErrorCode :9003
      */
-    PARAMS_EXCEPTION(9003, "参数异常");
+    PARAMS_EXCEPTION(9003, "参数异常"),
+
+    /**
+     * 结果集异常，ErrorCode :9004
+     */
+    RESULT_EXCEPTION(9004, "结果集异常");
 
     private Integer code;
 
@@ -51,5 +56,35 @@ public enum ErrCodeEnums {
 
     public void setMsg(String msg) {
         this.msg = msg;
+    }
+
+    /**
+     * 根据msg值获取ErrCodeEnums
+     *
+     * @param msg
+     * @return
+     */
+    public static ErrCodeEnums fromMsgString(String msg) {
+        for (ErrCodeEnums errCodeEnums : ErrCodeEnums.values()) {
+            if (errCodeEnums.getMsg().equals(msg)) {
+                return errCodeEnums;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * 根据code值获取ErrCodeEnums
+     *
+     * @param code
+     * @return
+     */
+    public static ErrCodeEnums fromCode(int code) {
+        for (ErrCodeEnums errCodeEnums : ErrCodeEnums.values()) {
+            if (errCodeEnums.getCode() == code) {
+                return errCodeEnums;
+            }
+        }
+        return null;
     }
 }

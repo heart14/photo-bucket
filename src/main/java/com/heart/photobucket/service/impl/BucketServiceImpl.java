@@ -113,10 +113,10 @@ public class BucketServiceImpl implements BucketService {
 
     @Override
     public Photo queryPhotoById(String photoId) throws SysException {
-        //TODO 自定义Assert
-        Assert.notBlank(photoId);
+        //Assert
+        Assert.notBlank(photoId,ErrCodeEnums.PARAMS_EXCEPTION.getMsg());
         Photo photo = photoMapper.selectByPhotoId(photoId);
-        Assert.notNull(photo);
+        Assert.notNull(photo,ErrCodeEnums.RESULT_EXCEPTION.getMsg());
         return photo;
     }
 

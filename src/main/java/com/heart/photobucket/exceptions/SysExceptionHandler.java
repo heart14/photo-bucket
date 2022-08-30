@@ -27,7 +27,7 @@ public class SysExceptionHandler {
     @ExceptionHandler({SysException.class})
     public SysResponse sysExceptionHandler(SysException e) {
         //手动抛出自定异常
-        log.error("自定异常 :{}", e.getMessage(), e);
+        log.error("手动抛出异常 :{}", e.getMessage(), e);
         //异常时返回日志traceId
         Map<String, String> map = new HashMap<>();
         map.put(Constants.FIELD_MDC_TRACE_ID, MDC.get(Constants.FIELD_MDC_TRACE_ID));
@@ -36,11 +36,16 @@ public class SysExceptionHandler {
 
     @ExceptionHandler({Exception.class})
     public SysResponse exceptionHandler(Exception e) {
-        //系统异常
-        log.error("系统异常 :{}", e.getMessage(), e);
+        //系统捕获异常 可能是Assert抛出的异常
+        log.error("系统捕获异常 :{}", e.getMessage(), e);
         //异常时返回日志traceId
         Map<String, String> map = new HashMap<>();
         map.put(Constants.FIELD_MDC_TRACE_ID, MDC.get(Constants.FIELD_MDC_TRACE_ID));
+        // 判断捕获到的异常信息是否属于自定义异常枚举类
+        ErrCodeEnums errCodeEnums = ErrCodeEnums.fromMsgString(e.getMessage());
+        if (errCodeEnums != null) {
+            return SysResponseUtils.fail(errCodeEnums.getCode(), errCodeEnums.getMsg(), map);
+        }
         return SysResponseUtils.fail(ErrCodeEnums.SYSTEM_EXCEPTION.getCode(), ErrCodeEnums.SYSTEM_EXCEPTION.getMsg(), map);
     }
 
