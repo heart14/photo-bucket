@@ -47,6 +47,8 @@ public class BucketController {
         return SysResponseUtils.success(result);
     }
 
+    //TODO 参数校验
+
     @ApiOperation("从图床下载图片")
     @RequestMapping(value = "/download", method = RequestMethod.POST)
     public SysResponse downloadFromBucket(@RequestBody SysRequest sysRequest) {
