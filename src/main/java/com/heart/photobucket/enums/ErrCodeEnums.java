@@ -31,7 +31,7 @@ public enum ErrCodeEnums {
     /**
      * 结果集异常，ErrorCode :9004
      */
-    RESULT_EXCEPTION(9004, "结果集异常");
+    RESULT_EXCEPTION(9004, "查询异常");
 
     private Integer code;
 
