@@ -64,7 +64,7 @@ public class TestController {
     }
 
     @ApiOperation("POST JSON TEST")
-    @RequestMapping(value = "/post/json", method = RequestMethod.POST)
+    @RequestMapping(value = "/post/fuckjson", method = RequestMethod.POST)
     public SysResponse json(@RequestBody SysRequest sysRequest) {
 
         logger.info("test post json ：{}", sysRequest);
