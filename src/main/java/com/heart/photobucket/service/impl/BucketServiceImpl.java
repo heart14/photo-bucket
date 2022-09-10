@@ -31,11 +31,9 @@ public class BucketServiceImpl implements BucketService {
 
     private static final Logger logger = LoggerFactory.getLogger(BucketServiceImpl.class);
 
-    private final SysProperties sysProperties;
     private final PhotoMapper photoMapper;
 
-    public BucketServiceImpl(SysProperties sysProperties, PhotoMapper photoMapper) {
-        this.sysProperties = sysProperties;
+    public BucketServiceImpl( PhotoMapper photoMapper) {
         this.photoMapper = photoMapper;
     }
 
@@ -46,7 +44,7 @@ public class BucketServiceImpl implements BucketService {
         }
 
         //获取配置文件中图片上传目录
-        String bucketPath = sysProperties.getProperty("bucket.path");
+        String bucketPath = SysProperties.BUCKET_PATH;
 
         String date = DateUtils.currentDate("yyyyMMdd");
 
@@ -77,7 +75,7 @@ public class BucketServiceImpl implements BucketService {
                 try {
                     multipartFile.transferTo(new File(filePath));
 
-                    String fileUrl = sysProperties.getProperty("bucket.url") + "/" + date + "/" + originalFilename;
+                    String fileUrl = SysProperties.BUCKET_URL + "/" + date + "/" + originalFilename;
 
                     Photo photo = new Photo();
                     photo.setPhotoId(StringUtils.UuidLowerCase());

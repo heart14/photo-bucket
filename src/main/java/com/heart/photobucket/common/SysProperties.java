@@ -1,5 +1,6 @@
 package com.heart.photobucket.common;
 
+import com.heart.photobucket.config.SysPropertyLoader;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -12,21 +13,13 @@ import java.util.Properties;
  * Created: lwf14 on 2022/4/12 23:06.
  * Editored:
  */
-@Component
 public class SysProperties {
 
-    public static Properties properties = new Properties();
-    public static InputStream inputStream = SysProperties.class.getResourceAsStream("/system.properties");
+    public static final String BUCKET_PATH = SysPropertyLoader.getInstance().getSysProperty("bucket.path");
+    public static final String BUCKET_URL = SysPropertyLoader.getInstance().getSysProperty("bucket.url");
 
-    static {
-        try {
-            properties.load(inputStream);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public String getProperty(String props) {
-        return properties.getProperty(props);
+    public static void main(String[] args) {
+        System.out.println(BUCKET_PATH);
+        System.out.println(BUCKET_URL);
     }
 }
