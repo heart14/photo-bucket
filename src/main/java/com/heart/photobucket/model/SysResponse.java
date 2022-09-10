@@ -1,5 +1,8 @@
 package com.heart.photobucket.model;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.io.Serializable;
 
 /**
@@ -8,16 +11,21 @@ import java.io.Serializable;
  * Created: Administrator on 2022/3/9 16:27.
  * Editored:
  */
+@ApiModel("请求响应")
 public class SysResponse implements Serializable {
 
     private static final long serialVersionUID = -1208864543584339177L;
 
+    @ApiModelProperty(name = "state",notes = "状态值：SUCCESS|FAIL")
     private String state;
 
+    @ApiModelProperty(name = "code",notes = "返回码")
     private Integer code;
 
+    @ApiModelProperty(name = "msg",notes = "返回信息")
     private String msg;
 
+    @ApiModelProperty(name = "data",notes = "返回数据")
     private Object data;
 
     public SysResponse() {
