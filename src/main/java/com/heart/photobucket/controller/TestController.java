@@ -118,14 +118,14 @@ public class TestController {
     @ApiOperation("http get test")
     @RequestMapping(value = "/http/get", method = RequestMethod.POST)
     public SysResponse httpGet() {
-        String get = HttpUtils.doGet("http://www.sadli.xyz/photobucket/test/get");
+        String get = HttpUtils.doGet("http://www.sadli.xyz/photobucket/test/get?p1=httpgettest&p2=777&p3=true");
         return SysResponseUtils.success(get);
     }
 
     @ApiOperation("http post test")
     @RequestMapping(value = "/http/post", method = RequestMethod.POST)
     public SysResponse httpPost() {
-        String url = "http://www.sadli.xyz/photobucket/test/post/json";
+        String url = "http://www.sadli.xyz/photobucket/test/post/fuckjson";
 
         Map<String, String> map = new HashMap<>();
         map.put("ver", "v1.1.0");
