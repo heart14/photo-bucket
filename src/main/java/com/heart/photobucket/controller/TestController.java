@@ -8,6 +8,7 @@ import com.heart.photobucket.model.SysRequest;
 import com.heart.photobucket.model.SysResponse;
 import com.heart.photobucket.service.BucketService;
 import com.heart.photobucket.thread.pool.SysThreadPoolTaskExecutor;
+import com.heart.photobucket.utils.HttpUtils;
 import com.heart.photobucket.utils.SysResponseUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -17,7 +18,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * About:
@@ -77,6 +80,14 @@ public class TestController {
         return SysResponseUtils.success("responsed by port :" + serverPort);
     }
 
+    @ApiOperation("POST URL ENCODED TEST")
+    @RequestMapping(value = "/post/url", method = RequestMethod.POST)
+    public SysResponse form(String p1, int p2) {
+
+        logger.info("test post url encoded ：p1 = {}, p2 = {}", p1, p2);
+        return SysResponseUtils.success("responsed by port :" + serverPort);
+    }
+
     @ApiOperation("exception test")
     @RequestMapping(value = "/exception", method = RequestMethod.POST)
     public SysResponse exception() {
@@ -102,5 +113,25 @@ public class TestController {
         Integer photoStatus = new JSONObject(biz).getInt("photoStatus", 0);
         List<Photo> photos = bucketService.queryPhotoList(photoStatus);
         return SysResponseUtils.success(photos);
+    }
+
+    @ApiOperation("http get test")
+    @RequestMapping(value = "/http/get", method = RequestMethod.POST)
+    public SysResponse httpGet() {
+        String get = HttpUtils.doGet("http://www.sadli.xyz/photobucket/test/get");
+        return SysResponseUtils.success(get);
+    }
+
+    @ApiOperation("http post test")
+    @RequestMapping(value = "/http/post", method = RequestMethod.POST)
+    public SysResponse httpPost() {
+        String url = "http://www.sadli.xyz/photobucket/test/post/json";
+
+        Map<String, String> map = new HashMap<>();
+        map.put("ver", "v1.1.0");
+        map.put("cmd", "test http post json");
+        map.put("biz", "no");
+        String post = HttpUtils.doPostJson(url,HttpUtils.mapToJsonStr(map));
+        return SysResponseUtils.success(post);
     }
 }

@@ -8,7 +8,7 @@ import java.util.UUID;
  * Created: lwf14 on 2022/4/28 23:03.
  * Editored:
  */
-public class StringUtils {
+public class StringUtils extends org.springframework.util.StringUtils {
 
     public static String UuidUpperCase() {
         return UUID.randomUUID().toString().replace("-", "").toUpperCase();
