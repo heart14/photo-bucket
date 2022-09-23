@@ -41,7 +41,9 @@ public enum ErrCodeEnums {
     /**
      * 网络请求异常，ErrorCode :9006
      */
-    HTTP_EXCEPTION(9006, "网络请求异常");
+    HTTP_EXCEPTION(9006, "网络请求异常"),
+
+    UNSUPPORT_MEDIA_TYPE(9007,"不支持的媒体类型");
 
     private Integer code;
 

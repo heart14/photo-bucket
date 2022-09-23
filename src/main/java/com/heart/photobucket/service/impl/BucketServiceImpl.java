@@ -94,6 +94,8 @@ public class BucketServiceImpl implements BucketService {
                     logger.warn("file upload fail :{}, {}", originalFilename, e.getMessage());
                     failList.add(originalFilename);
                 }
+            }else {
+                throw new SysException(ErrCodeEnums.UNSUPPORT_MEDIA_TYPE.getCode(), ErrCodeEnums.UNSUPPORT_MEDIA_TYPE.getMsg());
             }
         }
 
